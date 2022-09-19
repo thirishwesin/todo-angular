@@ -1,0 +1,30 @@
+<div *ngIf="appState == 'default'">
+    <h3 style="text-align:center">Add Todo List</h3>
+    <form [formGroup]="todoForm" class="form" style="padding:0 500px;">
+        <input type="text" formControlName="text" [(ngModel)]="text" name="text" class="form-control"  [ngClass]="{'error-msg': todoForm.invalid && todoForm.touched}"/>
+        <span *ngIf="(todoForm.controls['text'].dirty || todoForm.controls['text'].touched) && todoForm.controls['text'].invalid && todoForm.controls['text'].errors?.['required']" >
+            
+        </span>
+        <button (click)="addTodo()" class="btn btn-success">Add</button>
+    </form>
+</div>
+
+<div *ngIf="appState == 'edit'">
+    <h3 style="text-align:center">Edit Todo</h3>
+    <form class="form" style="padding:0 500px;">
+        <input type="text" [(ngModel)]="text" name="text" class="form-control">
+        <button (click)="updateTodo()" class="btn btn-primary">Update</button>
+    </form>
+</div>
+
+<h3 style="text-align:center">Todo List</h3>
+<table style="padding: 10px;" style="margin-left:600px">
+    <tr *ngFor="let todo of todos;let i=index">
+        <td>{{i+1}}</td>
+        <td>{{todo.text}}</td>
+        <td>{{todo.title}}</td>
+        <td><button class="btn btn-info" (click)="editTodo(todo)">Edit</button></td>
+        <td><button class="btn btn-danger"(click)="deleteTodo(todo.text)">Delete</button></td>
+    
+    </tr>
+</table>
